@@ -1,0 +1,7 @@
+platform :ios, "8.0"
+
+pod "AVOSCloud", '~>3.3.5'
+
+target :FreeCommunity do
+
+end
