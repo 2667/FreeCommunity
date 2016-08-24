@@ -52,7 +52,6 @@
     [formatter setDateFormat:@"MM-dd HH:mm"];
     self.timeLabel.text = [formatter stringFromDate:model.creatTime];
     [self layoutIfNeeded];
-    model.cellHeight = CGRectGetMaxY(self.timeLabel.frame) + 10;
 }
 
 + (CGFloat)heightWith:(NSString *)title image:(BOOL)image {

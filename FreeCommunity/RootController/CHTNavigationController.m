@@ -18,7 +18,8 @@
 + (void)initialize {
     UINavigationBar *bar = [UINavigationBar appearance];
     bar.barTintColor = TOPIC_COLOR;
-    [bar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    bar.tintColor = [UIColor whiteColor];
+    [bar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor], NSFontAttributeName : [UIFont systemFontOfSize:20 weight:UIFontWeightRegular]}];
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
 }
 
@@ -34,15 +35,6 @@
         return YES;
     }
     return NO;
-}
-
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    if ([self.childViewControllers count]) {
-        UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"back_image"] style:UIBarButtonItemStyleDone target:self action:@selector(clickAction)];
-        left.tintColor = [UIColor whiteColor];
-        viewController.navigationItem.leftBarButtonItem = left;
-    }
-    [super pushViewController:viewController animated:animated];
 }
 
 - (void)clickAction {

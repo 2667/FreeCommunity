@@ -22,6 +22,7 @@
 
 @property (nonatomic, strong) NSArray *images;
 
-@property (nonatomic, assign) CGFloat cellHeight;
+- (NSDictionary *)dictOfModel;
+- (instancetype)initAsNewModel;
 
 @end

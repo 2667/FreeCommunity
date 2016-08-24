@@ -8,6 +8,7 @@
 
 #import "CHTListViewController.h"
 #import "CHTListHeader.h"
+#import "CHTNewTopicViewController.h"
 
 @interface CHTListViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -30,10 +31,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self makeRightItem];
     self.currentType = CHTListSortedTypeCreatTime;
     self.navigationItem.title = self.categoryName;
     [self makeData];
     // Do any additional setup after loading the view.
+}
+
+- (void)makeRightItem {
+    self.navigationItem.rightBarButtonItems = @[[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(composeAction)], [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshAction)]];
+}
+
+- (void)composeAction {
+    CHTNewTopicViewController *nvc = [[CHTNewTopicViewController alloc] init];
+    nvc.subCategoryName = self.categoryName;
+    nvc.subCategoryID = self.subCategoryID;
+    [self.navigationController pushViewController:nvc animated:YES];
+}
+
+- (void)refreshAction {
+    
 }
 
 - (void)makeData {
