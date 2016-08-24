@@ -29,7 +29,7 @@
 
 - (void)setModel:(CHTListModel *)model {
     _model = model;
-    [self.userImage sd_setImageWithURL:[NSURL URLWithString:model.userImage] placeholderImage:[UIImage imageNamed:@"TabBarImage_01"]];
+    [self.userImage sd_setImageWithURL:[NSURL URLWithString:model.userImage] placeholderImage:[UIImage imageNamed:@"TabBarImage_02"]];
     self.titleLabel.text = model.title;
     self.userName.text = model.userName;
     if ([model.images count] == 0) {
@@ -42,9 +42,9 @@
             [view removeFromSuperview];
         }
         CGFloat width = self.width / 3 - 10;
-        for (int i = 0; i < model.images.count; i++) {
+        for (int i = 0; i < (model.images.count > 3 ? 3 : model.images.count); i++) {
             UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((width + 5 ) * i, 10, width, width)];
-            [imageView sd_setImageWithURL:[NSURL URLWithString:model.images[i]] placeholderImage:[UIImage imageNamed:@"TabBarImage_02"]];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:[[AVFile fileWithURL:model.images[i]] getThumbnailURLWithScaleToFit:NO width:width height:width]] placeholderImage:[UIImage imageNamed:@"TabBarImage_02"]];
             [self.imagesBackView addSubview:imageView];
         }
     }

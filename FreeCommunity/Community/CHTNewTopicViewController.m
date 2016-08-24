@@ -46,8 +46,13 @@
 - (void)rightAction {
     CHTListModel *model = [[CHTListModel alloc] initAsNewModel];
     model = [self.myView setTopicModel:model];
-    AVFile *file = [AVFile fileWithURL:@"https://dn-N112l1Nd.qbox.me/k1A60dJicwPkLIPTBfIrNCB.png"];
-    NSString *str = [file getThumbnailURLWithScaleToFit:NO width:100 height:100];
+    if (model.title.length == 0) {
+        [MBProgressHUD showToastTitle:@"标题不能为空!" seconds:1 onView:self.view];
+        return;
+    } else if (model.content.length == 0 && model.images.count == 0) {
+        [MBProgressHUD showToastTitle:@"内容不能为空!" seconds:1 onView:self.view];
+        return;
+    }
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         NSMutableArray *imagesUrlArray = [NSMutableArray array];
         for (int i = 0; i < model.images.count; i++) {
@@ -59,11 +64,19 @@
         }
         model.images = imagesUrlArray;
         AVObject *object = [AVObject objectWithClassName:@"Topic" dictionary:[model dictOfModel]];
+        [object setObject:self.subCategoryID forKey:@"subCategoryID"];
+        [object setObject:@"匿名用户" forKey:@"userName"];
         if ([object save]) {
-            NSLog(@"发表成功");
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showToastTitle:@"发表成功！" seconds:1 onView:[UIApplication sharedApplication].keyWindow];
+            });
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showToastTitle:@"发表失败" seconds:1 onView:[UIApplication sharedApplication].keyWindow];
+            });
         }
     });
-    
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)keyboardShow:(NSNotification *)sender {
