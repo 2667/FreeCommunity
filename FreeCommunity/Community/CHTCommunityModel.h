@@ -23,5 +23,6 @@
 @property (nonatomic, strong) NSNumber *subCategoryID;
 @property (nonatomic, strong) NSNumber *superCategoryID;
 @property (nonatomic, copy) NSString *subCategoryName;
+@property (nonatomic, copy) NSString *imageUrl;
 
 @end

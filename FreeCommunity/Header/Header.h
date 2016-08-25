@@ -10,7 +10,7 @@
 #define Header_h
 
 #define BACK_COLOR [UIColor colorWithWhite:0.98 alpha:1]
-#define TOPIC_COLOR [UIColor colorWithRed:0.000 green:0.276 blue:1.000 alpha:1.000]
+#define TOPIC_COLOR [UIColor colorWithRed:0.000 green:0.5 blue:1 alpha:1.000]
 
 #import "MBProgressHUD.h"
 #import "MJRefresh.h"

@@ -25,6 +25,7 @@
     self.myView.mainTableView.dataSource = self;
     self.myView.subTableView.delegate = self;
     self.myView.subTableView.dataSource = self;
+    [self.myView.subTableView registerNib:[UINib nibWithNibName:@"CHTCommunitySubCell" bundle:nil] forCellReuseIdentifier:@"subCommunityCell"];
 }
 
 - (void)viewDidLoad {
@@ -68,13 +69,9 @@
         cell.selected = model.isSelected;
         return cell;
     } else {
-        CHTCommunitySubCell *cell = [tableView dequeueReusableCellWithIdentifier:@"subCommunityCell"];
-        if (!cell) {
-            cell = [[CHTCommunitySubCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"subCommunityCell"];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
+        CHTCommunitySubCell *cell = [tableView dequeueReusableCellWithIdentifier:@"subCommunityCell" forIndexPath:indexPath];
         CHTCommunitySubModel *model = [[CHTCommunityManager shareInstance] modelOfSubCategoryWithMainIndex:self.currentMainIndex subIndex:indexPath.row];
-        cell.textLabel.text = model.subCategoryName;
+        cell.model = model;
         return cell;
     }
 }
@@ -92,6 +89,14 @@
         lvc.subCategoryID = model.subCategoryID;
         lvc.categoryName = model.subCategoryName;
         [self.navigationController pushViewController:lvc animated:YES];
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ([tableView isEqual:self.myView.mainTableView]) {
+        return 44;
+    } else {
+        return 60;
     }
 }
 

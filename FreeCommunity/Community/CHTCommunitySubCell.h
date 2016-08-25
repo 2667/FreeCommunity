@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@class CHTCommunitySubModel;
 @interface CHTCommunitySubCell : UITableViewCell
+
+@property (nonatomic, strong) CHTCommunitySubModel *model;
 
 @end

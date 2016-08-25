@@ -8,6 +8,7 @@
 
 #import "CHTListModel.h"
 #import <objc/runtime.h>
+#import <AVOSCloud/AVOSCloud.h>
 
 @implementation CHTListModel
 
@@ -28,8 +29,28 @@
 - (instancetype)initAsNewModel {
     self = [super init];
     if (self) {
-        self.seeCount = @"0";
-        self.answerCount = @"0";
+        self.seeCount = @0;
+        self.answerCount = @0;
+    }
+    return self;
+}
+
+- (instancetype)initWithObject:(AVObject *)object {
+    self = [super init];
+    if (self) {
+        self.title = object[@"title"];
+        self.content = object[@"content"];
+        self.topicID = object[@"topicID"];
+        self.answerCount = object[@"answerCount"];
+        self.seeCount = object[@"seeCount"];
+        self.images = object[@"images"];
+        self.userName = object[@"userName"];
+        self.userImage = object[@"userImage"];
+        self.createdAt = object.createdAt;
+        self.answerTime = self.createdAt;
+        if (object[@"answerTime"]) {
+            self.answerTime = object[@"answerTime"];
+        }
     }
     return self;
 }

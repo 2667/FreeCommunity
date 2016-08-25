@@ -50,7 +50,7 @@
     }
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MM-dd HH:mm"];
-    self.timeLabel.text = [formatter stringFromDate:model.creatTime];
+    self.timeLabel.text = [formatter stringFromDate:model.createdAt];
     [self layoutIfNeeded];
 }
 

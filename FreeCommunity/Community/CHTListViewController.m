@@ -15,6 +15,12 @@
 @property (nonatomic, strong) CHTListView *myView;
 @property (nonatomic, assign) CHTListSortedType currentType;
 
+@property (nonatomic, strong) UIButton *tempBtn;
+@property (nonatomic, strong) UIView *btnBottomView;
+
+@property (nonatomic, strong) UIView *headerView;
+@property (nonatomic, strong) UIView *footerView;
+
 @end
 
 @implementation CHTListViewController
@@ -22,7 +28,7 @@
 - (void)loadView {
     self.myView = [[CHTListView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.view = self.myView;
-    self.myView.tableView.estimatedRowHeight = 100;
+//    self.myView.tableView.estimatedRowHeight = 100;
     self.myView.tableView.delegate = self;
     self.myView.tableView.dataSource = self;
     
@@ -32,10 +38,43 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self makeRightItem];
+    [self setupFooterView];
     self.currentType = CHTListSortedTypeCreatTime;
     self.navigationItem.title = self.categoryName;
-    [self makeData];
+    [[CHTListManager shareInstance] loadDataWithSubCategoryID:self.subCategoryID type:YES finish:^{
+        [self.myView.tableView reloadData];
+    }];
+    [[CHTListManager shareInstance] countOfTopic:self.subCategoryID finish:^(NSInteger count) {
+        [self.myView setTopicCount:count];
+    }];
+    self.myView.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [[CHTListManager shareInstance] requestData:self.currentType isAdd:YES finish:^{
+            [self.myView.tableView reloadData];
+            [self.myView.tableView.mj_footer endRefreshing];
+        }];
+    }];
     // Do any additional setup after loading the view.
+}
+
+- (void)setupFooterView {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 170)];
+    UILabel *label = [[UILabel alloc] init];
+    label.text = @"~~~暂时没有帖子~~~";
+    label.textColor = [UIColor grayColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    [view addSubview:label];
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(view).offset(30);
+        make.centerX.equalTo(view);
+    }];
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"nothing"]];
+    [view addSubview:imageView];
+    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(label.mas_top);
+        make.centerX.equalTo(view);
+        make.height.width.equalTo(@150);
+    }];
+    self.footerView = view;
 }
 
 - (void)makeRightItem {
@@ -50,17 +89,20 @@
 }
 
 - (void)refreshAction {
-    
-}
-
-- (void)makeData {
-    [[CHTListManager shareInstance] loadDataWithSubCategoryID:self.subCategoryID sortType:self.currentType page:1 finish:^{
-        [self.myView.tableView reloadData];
+    [[CHTListManager shareInstance] requestData:self.currentType isAdd:NO finish:^{
+        [self reloadTableView];
+        if ([[CHTListManager shareInstance] countOfDataType:self.currentType]) {
+            [self.myView.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
+        }
+    }];
+    [[CHTListManager shareInstance] countOfTopic:self.subCategoryID finish:^(NSInteger count) {
+        [self.myView setTopicCount:count];
     }];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [[CHTListManager shareInstance] countOfDataType:CHTListSortedTypeCreatTime];
+    NSInteger count = [[CHTListManager shareInstance] countOfDataType:self.currentType];
+    return count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -74,7 +116,82 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CHTListModel *model = [[CHTListManager shareInstance] modelOfCurrentType:self.currentType index:indexPath.row];
-    return [CHTListCell heightWith:model.title image:model.images.count];
+    if (model.height < 20) {
+        CGFloat height = [CHTListCell heightWith:model.title image:model.images.count];
+        model.height = height;
+    }
+    return model.height;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (self.headerView == nil) {
+        [self setupHeaderView];
+    }
+    return self.headerView;
+}
+
+- (void)clickAction:(UIButton *)sender {
+    [self.tempBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [sender setTitleColor:TOPIC_COLOR forState:UIControlStateNormal];
+    self.tempBtn = sender;
+    self.btnBottomView.center = CGPointMake(self.tempBtn.center.x, self.btnBottomView.center.y);
+
+    CHTListSortedType type = sender.center.x / (self.view.width / 3);
+    if (type == self.currentType) {
+        return;
+    }
+    [[CHTListManager shareInstance] setOffsetY:self.myView.tableView.contentOffset.y sortedType:self.currentType];
+    self.currentType = type;
+    
+    if ([[CHTListManager shareInstance] countOfDataType:self.currentType] == 0) {
+        [self refreshAction];
+        return;
+    }
+    
+    [self reloadTableView];
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 35;
+}
+
+- (void)setupHeaderView {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 35)];
+    view.backgroundColor = [UIColor whiteColor];
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 34.5, view.width, 0.5)];
+    line.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
+    [view addSubview:line];
+    NSArray *array = @[@"最新发表", @"最新回复", @"回复最多"];
+    for (int i = 0; i < 3; i++) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.titleLabel.font = [UIFont systemFontOfSize:14];
+        btn.frame = CGRectMake(view.width / 3 * i, 0, view.width / 3, 35);
+        [btn setTitle:array[i] forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(clickAction:) forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:btn];
+        [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        if (i == 0) {
+            self.tempBtn = btn;
+            [btn setTitleColor:TOPIC_COLOR forState:UIControlStateNormal];
+        }
+    }
+    self.btnBottomView = [[UIView alloc] initWithFrame:CGRectMake(0, 33, view.width / 3, 2)];
+    self.btnBottomView.backgroundColor = TOPIC_COLOR;
+    [view addSubview:self.btnBottomView];
+    self.btnBottomView.center = CGPointMake(self.tempBtn.center.x, self.btnBottomView.center.y);
+    self.headerView = view;
+}
+
+/**
+ *  刷新tableView
+ */
+- (void)reloadTableView {
+    [self.myView.tableView reloadData];
+    NSInteger count = [[CHTListManager shareInstance] countOfDataType:self.currentType];
+    self.myView.tableView.tableFooterView = count ? nil : self.footerView;
+    CGFloat y = [[CHTListManager shareInstance] getOffsetYWithType:self.currentType];
+    self.myView.tableView.contentOffset = CGPointMake(0, y);
 }
 
 - (void)didReceiveMemoryWarning {

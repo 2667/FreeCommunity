@@ -8,18 +8,37 @@
 
 #import "CHTCommunitySubCell.h"
 #import "CHTCommunityHeader.h"
+#import "UIButton+WebCache.h"
+
+@interface CHTCommunitySubCell ()
+
+@property (strong, nonatomic) IBOutlet UIButton *image;
+@property (strong, nonatomic) IBOutlet UILabel *categoryName;
+@property (strong, nonatomic) IBOutlet UILabel *topicLabel;
+@property (strong, nonatomic) IBOutlet UILabel *answeiLabel;
+@property (strong, nonatomic) IBOutlet UIButton *loveBtn;
+
+@end
 
 @implementation CHTCommunitySubCell
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
-    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
-    if (self) {
-        self.contentView.backgroundColor = BACK_COLOR;
-    }
-    return self;
+- (IBAction)loveBtn:(id)sender {
+    self.loveBtn.selected = !self.loveBtn.isSelected;
+}
+
+- (void)setModel:(CHTCommunitySubModel *)model {
+    _model = model;
+    [self.image sd_setImageWithURL:[NSURL URLWithString:model.imageUrl] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"tiezi1"]];
+    self.categoryName.text = model.subCategoryName;
+    AVQuery *query = [AVQuery queryWithClassName:@"Topic"];
+    [query whereKey:@"subCategoryID" equalTo:model.subCategoryID];
+    [query countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
+        self.topicLabel.text = [NSString stringWithFormat:@"主题帖 %ld", number];
+    }];
 }
 
 - (void)awakeFromNib {
+    [self.loveBtn setImage:[UIImage imageNamed:@"loved"] forState:UIControlStateSelected];
     // Initialization code
 }
 

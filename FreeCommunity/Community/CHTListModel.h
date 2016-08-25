@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+@class AVObject;
 @interface CHTListModel : NSObject
 
 @property (nonatomic, copy) NSString *title;
@@ -16,13 +17,17 @@
 @property (nonatomic, copy) NSString *topicID;
 @property (nonatomic, copy) NSString *userName;
 @property (nonatomic, copy) NSString *userImage;
-@property (nonatomic, copy) NSString *seeCount;
-@property (nonatomic, copy) NSString *answerCount;
-@property (nonatomic, strong) NSDate *creatTime;
+@property (nonatomic, strong) NSNumber *seeCount;
+@property (nonatomic, strong) NSNumber *answerCount;
+@property (nonatomic, strong) NSDate *createdAt;
+@property (nonatomic, strong) NSDate *answerTime;
+
+@property (nonatomic, assign) CGFloat height;
 
 @property (nonatomic, strong) NSArray *images;
 
 - (NSDictionary *)dictOfModel;
 - (instancetype)initAsNewModel;
+- (instancetype)initWithObject:(AVObject *)object;
 
 @end

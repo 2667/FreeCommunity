@@ -75,6 +75,7 @@ static CHTCommunityManager *manager = nil;
             model.superCategoryID = object[@"superCategoryID"];
             model.subCategoryID = object[@"subCategoryID"];
             model.subCategoryName = object[@"subCategoryName"];
+            model.imageUrl = object[@"imageUrl"];
             [self.subDataArray addObject:model];
         }
         model.subCategories = self.subDataArray;
