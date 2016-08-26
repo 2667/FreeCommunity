@@ -125,6 +125,16 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
     }];
 }
 
++ (MB_INSTANCETYPE)showHUDAddedTo:(UIView *)view withColor:(UIColor *)color backColor:(UIColor *)backColor {
+    MBProgressHUD *hud = [[self alloc] initWithView:view];
+    hud.removeFromSuperViewOnHide = YES;
+    [hud setColor:backColor];
+    hud.activityIndicatorColor = color;
+    [view addSubview:hud];
+    [hud show:YES];
+    return MB_AUTORELEASE(hud);
+}
+
 + (MB_INSTANCETYPE)showHUDAddedTo:(UIView *)view animated:(BOOL)animated {
 	MBProgressHUD *hud = [[self alloc] initWithView:view];
 	hud.removeFromSuperViewOnHide = YES;

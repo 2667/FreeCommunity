@@ -9,6 +9,7 @@
 #import "CHTListViewController.h"
 #import "CHTListHeader.h"
 #import "CHTNewTopicViewController.h"
+#import "CHTTopicDetailViewController.h"
 
 @interface CHTListViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -19,7 +20,9 @@
 @property (nonatomic, strong) UIView *btnBottomView;
 
 @property (nonatomic, strong) UIView *headerView;
-@property (nonatomic, strong) UIView *footerView;
+@property (nonatomic, strong) UIView *nothingFooterView;
+
+@property (nonatomic, strong) UIView *noMoreFooterView;
 
 @end
 
@@ -41,17 +44,26 @@
     [self setupFooterView];
     self.currentType = CHTListSortedTypeCreatTime;
     self.navigationItem.title = self.categoryName;
-    [[CHTListManager shareInstance] loadDataWithSubCategoryID:self.subCategoryID type:YES finish:^{
-        [self.myView.tableView reloadData];
+    [self.view showHUD];
+    [[CHTListManager shareInstance] loadDataWithSubCategoryID:self.subCategoryID type:YES finish:^(NSInteger count){
+        [self.view hideHUD];
+        self.myView.tableView.tableFooterView = count < 20 ? self.noMoreFooterView : nil;
+        [self reloadTableView];
     }];
     [[CHTListManager shareInstance] countOfTopic:self.subCategoryID finish:^(NSInteger count) {
         [self.myView setTopicCount:count];
     }];
     self.myView.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-        [[CHTListManager shareInstance] requestData:self.currentType isAdd:YES finish:^{
+        [self.view showHUD];
+        [[CHTListManager shareInstance] requestData:self.currentType isAdd:YES finish:^(NSInteger count){
+            [self.view hideHUD];
+            self.myView.tableView.tableFooterView = count < 20 ? self.noMoreFooterView : nil;
             [self.myView.tableView reloadData];
             [self.myView.tableView.mj_footer endRefreshing];
         }];
+    }];
+    self.myView.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self refreshAction];
     }];
     // Do any additional setup after loading the view.
 }
@@ -74,7 +86,19 @@
         make.centerX.equalTo(view);
         make.height.width.equalTo(@150);
     }];
-    self.footerView = view;
+    self.nothingFooterView = view;
+    
+    self.noMoreFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.width, 30)];
+    UILabel *label1 = [[UILabel alloc] init];
+    label1.textAlignment = NSTextAlignmentCenter;
+    label1.textColor = [UIColor grayColor];
+    label1.text = @"没有更多帖子了/(ㄒoㄒ)/~~";
+    label1.font = [UIFont systemFontOfSize:13];
+    [self.noMoreFooterView addSubview:label1];
+    [label1 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.center.equalTo(self.noMoreFooterView);
+    }];
+    
 }
 
 - (void)makeRightItem {
@@ -89,7 +113,11 @@
 }
 
 - (void)refreshAction {
-    [[CHTListManager shareInstance] requestData:self.currentType isAdd:NO finish:^{
+    [self.view showHUD];
+    [[CHTListManager shareInstance] requestData:self.currentType isAdd:NO finish:^(NSInteger count){
+        [self.view hideHUD];
+        self.myView.tableView.tableFooterView = count < 20 ? self.noMoreFooterView : nil;
+        [self.myView.tableView.mj_header endRefreshing];
         [self reloadTableView];
         if ([[CHTListManager shareInstance] countOfDataType:self.currentType]) {
             [self.myView.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionTop];
@@ -112,6 +140,12 @@
     cell.model = model;
     [self tableView:tableView heightForRowAtIndexPath:indexPath];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    CHTTopicDetailViewController *tvc = [[CHTTopicDetailViewController alloc] init];
+    tvc.listModel = [[CHTListManager shareInstance] modelOfCurrentType:self.currentType index:indexPath.row];
+    [self.navigationController pushViewController:tvc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -189,7 +223,7 @@
 - (void)reloadTableView {
     [self.myView.tableView reloadData];
     NSInteger count = [[CHTListManager shareInstance] countOfDataType:self.currentType];
-    self.myView.tableView.tableFooterView = count ? nil : self.footerView;
+    self.myView.tableView.tableFooterView = count ? self.myView.tableView.tableFooterView : self.nothingFooterView;
     CGFloat y = [[CHTListManager shareInstance] getOffsetYWithType:self.currentType];
     self.myView.tableView.contentOffset = CGPointMake(0, y);
 }

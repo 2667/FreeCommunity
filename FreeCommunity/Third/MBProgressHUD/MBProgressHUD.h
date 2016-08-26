@@ -112,6 +112,8 @@ typedef void (^MBProgressHUDCompletionBlock)();
 
 + (void)showToastTitle:(NSString *)string seconds:(CGFloat)second onView:(UIView *)view;
 
++ (MB_INSTANCETYPE)showHUDAddedTo:(UIView *)view withColor:(UIColor *)color backColor:(UIColor *)backColor;
+
 /**
  * Creates a new HUD, adds it to provided view and shows it. The counterpart to this method is hideHUDForView:animated:.
  *

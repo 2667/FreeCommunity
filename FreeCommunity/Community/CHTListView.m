@@ -38,6 +38,7 @@
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.width, 70)];
     headerView.backgroundColor = [UIColor whiteColor];
     self.imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"tiezi1"]];
+    self.imageView.backgroundColor = [UIColor colorWithRed:0.134 green:0.745 blue:1.000 alpha:1.000];
     [headerView addSubview:self.imageView];
     [self.imageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(headerView).offset(10);

@@ -81,6 +81,15 @@
 		6FA3A9801D6EF3B70065A4BC /* tiezi1.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3A97F1D6EF3B70065A4BC /* tiezi1.png */; };
 		6FA3A9831D6EF5980065A4BC /* love.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3A9811D6EF5980065A4BC /* love.png */; };
 		6FA3A9841D6EF5980065A4BC /* loved.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3A9821D6EF5980065A4BC /* loved.png */; };
+		6FA3A98D1D7017210065A4BC /* CHTTopicDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3A98C1D7017210065A4BC /* CHTTopicDetailViewController.m */; };
+		6FA3A9901D7018560065A4BC /* CHTTopicDetailView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3A98F1D7018560065A4BC /* CHTTopicDetailView.m */; };
+		6FA3A9941D701D5E0065A4BC /* answer.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3A9921D701D5E0065A4BC /* answer.png */; };
+		6FA3A9951D701D5E0065A4BC /* see.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3A9931D701D5E0065A4BC /* see.png */; };
+		6FA3A9991D7028520065A4BC /* CHTTopicDetailMainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3A9971D7028520065A4BC /* CHTTopicDetailMainCell.m */; };
+		6FA3A99A1D7028520065A4BC /* CHTTopicDetailMainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3A9981D7028520065A4BC /* CHTTopicDetailMainCell.xib */; };
+		6FA3A99D1D7031D50065A4BC /* CHTTopicDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3A99C1D7031D50065A4BC /* CHTTopicDetailModel.m */; };
+		6FA3A9A01D7035FD0065A4BC /* CHTTopicDetailManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FA3A99F1D7035FD0065A4BC /* CHTTopicDetailManager.m */; };
+		6FA3A9A21D7043AF0065A4BC /* holder.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3A9A11D7043AF0065A4BC /* holder.png */; };
 		6FC43CFC1D6AE28E0062ACA1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC43CFB1D6AE28E0062ACA1 /* main.m */; };
 		6FC43CFF1D6AE28E0062ACA1 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6FC43CFE1D6AE28E0062ACA1 /* AppDelegate.m */; };
 		6FC43D051D6AE28E0062ACA1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FC43D031D6AE28E0062ACA1 /* Main.storyboard */; };
@@ -249,6 +258,21 @@
 		6FA3A97F1D6EF3B70065A4BC /* tiezi1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiezi1.png; sourceTree = "<group>"; };
 		6FA3A9811D6EF5980065A4BC /* love.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = love.png; sourceTree = "<group>"; };
 		6FA3A9821D6EF5980065A4BC /* loved.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = loved.png; sourceTree = "<group>"; };
+		6FA3A98B1D7017210065A4BC /* CHTTopicDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTTopicDetailViewController.h; sourceTree = "<group>"; };
+		6FA3A98C1D7017210065A4BC /* CHTTopicDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTTopicDetailViewController.m; sourceTree = "<group>"; };
+		6FA3A98E1D7018560065A4BC /* CHTTopicDetailView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTTopicDetailView.h; sourceTree = "<group>"; };
+		6FA3A98F1D7018560065A4BC /* CHTTopicDetailView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTTopicDetailView.m; sourceTree = "<group>"; };
+		6FA3A9911D7018CB0065A4BC /* CHTTopicDetailHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CHTTopicDetailHeader.h; sourceTree = "<group>"; };
+		6FA3A9921D701D5E0065A4BC /* answer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = answer.png; sourceTree = "<group>"; };
+		6FA3A9931D701D5E0065A4BC /* see.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = see.png; sourceTree = "<group>"; };
+		6FA3A9961D7028520065A4BC /* CHTTopicDetailMainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTTopicDetailMainCell.h; sourceTree = "<group>"; };
+		6FA3A9971D7028520065A4BC /* CHTTopicDetailMainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTTopicDetailMainCell.m; sourceTree = "<group>"; };
+		6FA3A9981D7028520065A4BC /* CHTTopicDetailMainCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHTTopicDetailMainCell.xib; sourceTree = "<group>"; };
+		6FA3A99B1D7031D50065A4BC /* CHTTopicDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTTopicDetailModel.h; sourceTree = "<group>"; };
+		6FA3A99C1D7031D50065A4BC /* CHTTopicDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTTopicDetailModel.m; sourceTree = "<group>"; };
+		6FA3A99E1D7035FD0065A4BC /* CHTTopicDetailManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTTopicDetailManager.h; sourceTree = "<group>"; };
+		6FA3A99F1D7035FD0065A4BC /* CHTTopicDetailManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTTopicDetailManager.m; sourceTree = "<group>"; };
+		6FA3A9A11D7043AF0065A4BC /* holder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = holder.png; sourceTree = "<group>"; };
 		6FC43CF71D6AE28E0062ACA1 /* FreeCommunity.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FreeCommunity.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FC43CFB1D6AE28E0062ACA1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6FC43CFD1D6AE28E0062ACA1 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -652,6 +676,65 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		6FA3A9851D700D290065A4BC /* TopicDetail */ = {
+			isa = PBXGroup;
+			children = (
+				6FA3A98A1D700D650065A4BC /* Header */,
+				6FA3A9891D700D4A0065A4BC /* Controllers */,
+				6FA3A9881D700D440065A4BC /* Managers */,
+				6FA3A9871D700D3D0065A4BC /* Models */,
+				6FA3A9861D700D380065A4BC /* Views */,
+			);
+			name = TopicDetail;
+			sourceTree = "<group>";
+		};
+		6FA3A9861D700D380065A4BC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				6FA3A98E1D7018560065A4BC /* CHTTopicDetailView.h */,
+				6FA3A98F1D7018560065A4BC /* CHTTopicDetailView.m */,
+				6FA3A9961D7028520065A4BC /* CHTTopicDetailMainCell.h */,
+				6FA3A9971D7028520065A4BC /* CHTTopicDetailMainCell.m */,
+				6FA3A9981D7028520065A4BC /* CHTTopicDetailMainCell.xib */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		6FA3A9871D700D3D0065A4BC /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6FA3A99B1D7031D50065A4BC /* CHTTopicDetailModel.h */,
+				6FA3A99C1D7031D50065A4BC /* CHTTopicDetailModel.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		6FA3A9881D700D440065A4BC /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				6FA3A99E1D7035FD0065A4BC /* CHTTopicDetailManager.h */,
+				6FA3A99F1D7035FD0065A4BC /* CHTTopicDetailManager.m */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		6FA3A9891D700D4A0065A4BC /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6FA3A98B1D7017210065A4BC /* CHTTopicDetailViewController.h */,
+				6FA3A98C1D7017210065A4BC /* CHTTopicDetailViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		6FA3A98A1D700D650065A4BC /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				6FA3A9911D7018CB0065A4BC /* CHTTopicDetailHeader.h */,
+			);
+			name = Header;
+			sourceTree = "<group>";
+		};
 		6FC43CEE1D6AE28E0062ACA1 = {
 			isa = PBXGroup;
 			children = (
@@ -697,6 +780,7 @@
 		6FC43D141D6AE2D70062ACA1 /* Community */ = {
 			isa = PBXGroup;
 			children = (
+				6FA3A9851D700D290065A4BC /* TopicDetail */,
 				6F3F7FE41D6D29690097225B /* NewTopic */,
 				6F3F7F991D6C1A160097225B /* CommunityList */,
 				6F3F7F981D6C19FF0097225B /* CommunityHome */,
@@ -778,6 +862,9 @@
 		6FC43D291D6AEB810062ACA1 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				6FA3A9A11D7043AF0065A4BC /* holder.png */,
+				6FA3A9921D701D5E0065A4BC /* answer.png */,
+				6FA3A9931D701D5E0065A4BC /* see.png */,
 				6FA3A9811D6EF5980065A4BC /* love.png */,
 				6FA3A9821D6EF5980065A4BC /* loved.png */,
 				6FA3A97F1D6EF3B70065A4BC /* tiezi1.png */,
@@ -862,6 +949,8 @@
 			files = (
 				6F3F7FF71D6D3DF70097225B /* keyboard.png in Resources */,
 				6FC43D2F1D6AEB820062ACA1 /* TabBarImage_03.png in Resources */,
+				6FA3A9941D701D5E0065A4BC /* answer.png in Resources */,
+				6FA3A9A21D7043AF0065A4BC /* holder.png in Resources */,
 				6FC43D2D1D6AEB820062ACA1 /* TabBarImage_01.png in Resources */,
 				6FA3A9801D6EF3B70065A4BC /* tiezi1.png in Resources */,
 				6FA3A97A1D6ED0E80065A4BC /* nothing.png in Resources */,
@@ -886,6 +975,8 @@
 				6FC43D361D6AF6180062ACA1 /* NavigationBar_back.png in Resources */,
 				6FA3A9841D6EF5980065A4BC /* loved.png in Resources */,
 				6FC43D2E1D6AEB820062ACA1 /* TabBarImage_02.png in Resources */,
+				6FA3A9951D701D5E0065A4BC /* see.png in Resources */,
+				6FA3A99A1D7028520065A4BC /* CHTTopicDetailMainCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -946,6 +1037,7 @@
 			files = (
 				6FC43D3E1D6AFB970062ACA1 /* CHTCommunityViewController.m in Sources */,
 				6F3F7FE71D6D298D0097225B /* CHTNewTopicViewController.m in Sources */,
+				6FA3A98D1D7017210065A4BC /* CHTTopicDetailViewController.m in Sources */,
 				6F3F7F731D6C111C0097225B /* CHTCommunitySubCell.m in Sources */,
 				6F3F803A1D6D62050097225B /* MJRefreshGifHeader.m in Sources */,
 				6F3F7FDB1D6C37520097225B /* SDWebImageManager.m in Sources */,
@@ -953,6 +1045,7 @@
 				6F3F80351D6D62050097225B /* MJRefreshAutoNormalFooter.m in Sources */,
 				6FC43D261D6AE2D70062ACA1 /* UIView+CHTHelper.m in Sources */,
 				6F3F80411D6D62050097225B /* UIView+MJExtension.m in Sources */,
+				6FA3A99D1D7031D50065A4BC /* CHTTopicDetailModel.m in Sources */,
 				6F3F7F6B1D6BF66C0097225B /* CHTCommunityModel.m in Sources */,
 				6F3F80381D6D62050097225B /* MJRefreshBackNormalFooter.m in Sources */,
 				6FC43D081D6AE28E0062ACA1 /* FreeCommunity.xcdatamodeld in Sources */,
@@ -968,6 +1061,7 @@
 				6F3F80301D6D62050097225B /* MJRefreshBackFooter.m in Sources */,
 				6F3F7F911D6C15D80097225B /* MASLayoutConstraint.m in Sources */,
 				6F3F7F951D6C15D80097225B /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				6FA3A9991D7028520065A4BC /* CHTTopicDetailMainCell.m in Sources */,
 				6F3F7F901D6C15D80097225B /* MASConstraintMaker.m in Sources */,
 				6F3F7F651D6BEC230097225B /* CHTCommunityView.m in Sources */,
 				6F3F803E1D6D62050097225B /* MJRefreshConst.m in Sources */,
@@ -992,6 +1086,7 @@
 				6F3F80371D6D62050097225B /* MJRefreshBackGifFooter.m in Sources */,
 				6F3F80001D6D61F90097225B /* MBProgressHUD.m in Sources */,
 				6F3F7FA41D6C1AB70097225B /* CHTListView.m in Sources */,
+				6FA3A9901D7018560065A4BC /* CHTTopicDetailView.m in Sources */,
 				6F3F7FA11D6C1AA90097225B /* CHTListViewController.m in Sources */,
 				6F3F7FED1D6D29CD0097225B /* CHTNewTopicView.m in Sources */,
 				6F3F7FD71D6C37520097225B /* SDWebImageCompat.m in Sources */,
@@ -1008,6 +1103,7 @@
 				6F3F80361D6D62050097225B /* MJRefreshAutoStateFooter.m in Sources */,
 				6F3F80391D6D62050097225B /* MJRefreshBackStateFooter.m in Sources */,
 				6F3F803C1D6D62050097225B /* MJRefreshStateHeader.m in Sources */,
+				6FA3A9A01D7035FD0065A4BC /* CHTTopicDetailManager.m in Sources */,
 				6F3F803B1D6D62050097225B /* MJRefreshNormalHeader.m in Sources */,
 				6F3F7FE11D6C37520097225B /* UIImageView+HighlightedWebCache.m in Sources */,
 				6F3F7F8F1D6C15D80097225B /* MASConstraint.m in Sources */,

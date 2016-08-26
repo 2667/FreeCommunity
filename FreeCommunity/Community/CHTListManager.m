@@ -47,22 +47,22 @@ static CHTListManager *manager = nil;
     return [self.offsetYArray[type] floatValue];
 }
 
-- (void)loadDataWithSubCategoryID:(NSNumber *)subID type:(BOOL)isSubCategory finish:(void (^)())finish {
+- (void)loadDataWithSubCategoryID:(NSNumber *)subID type:(BOOL)isSubCategory finish:(void (^)(NSInteger count))finish {
     if (isSubCategory) {
         self.isSubCategory = @"subCategoryID";
     } else {
         self.isSubCategory = @"superCategoryID";
     }
     if ([self.currentCategoryID isEqualToNumber:subID] && self.dataArray.firstObject.count) {
-        finish();
+        finish(self.dataArray.firstObject.count);
         return;
     }
     self.currentCategoryID = subID;
     self.offsetYArray = @[@0, @0, @0].mutableCopy;
     _dataArray = [NSMutableArray arrayWithObjects:[NSMutableArray array], [NSMutableArray array], [NSMutableArray array], nil];
     
-    [self requestData:CHTListSortedTypeCreatTime isAdd:NO finish:^{
-        finish();
+    [self requestData:CHTListSortedTypeCreatTime isAdd:NO finish:^(NSInteger count){
+        finish(count);
     }];
 }
 
@@ -96,7 +96,7 @@ static CHTListManager *manager = nil;
 }
  */
 
-- (void)requestData:(CHTListSortedType)type isAdd:(BOOL)add finish:(void(^)())finish {
+- (void)requestData:(CHTListSortedType)type isAdd:(BOOL)add finish:(void(^)(NSInteger count))finish {
     AVQuery *query = [AVQuery queryWithClassName:@"Topic"];
     query.limit = 20;
     NSArray *array = @[@"createdAt", @"answerTime", @"answerCount"];
@@ -121,7 +121,7 @@ static CHTListManager *manager = nil;
             CHTListModel *model = [[CHTListModel alloc] initWithObject:object];
             [self.dataArray[type] addObject:model];
         }
-        finish();
+        finish(objects.count);
     }];
 }
 

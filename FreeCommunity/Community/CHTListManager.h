@@ -43,7 +43,7 @@ typedef enum : NSUInteger {
  *  @param subID  分类ID
  *  @param isSubCategory 是分类还是主类
  */
-- (void)loadDataWithSubCategoryID:(NSNumber *)subID type:(BOOL)isSubCategory finish:(void(^)())finish;
+- (void)loadDataWithSubCategoryID:(NSNumber *)subID type:(BOOL)isSubCategory finish:(void(^)(NSInteger count))finish;
 
 /**
  *  刷新方法
@@ -60,7 +60,7 @@ typedef enum : NSUInteger {
  *  @param add 是添加数据还是刷新数据
  *  @param finish finish
  */
-- (void)requestData:(CHTListSortedType)type isAdd:(BOOL)add finish:(void(^)())finish;
+- (void)requestData:(CHTListSortedType)type isAdd:(BOOL)add finish:(void(^)(NSInteger count))finish;
 
 - (NSInteger)countOfDataType:(CHTListSortedType)type;
 - (CHTListModel *)modelOfCurrentType:(CHTListSortedType)type index:(NSInteger)index;

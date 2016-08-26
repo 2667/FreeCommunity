@@ -7,6 +7,7 @@
 //
 
 #import "UIView+CHTHelper.h"
+#import "Header.h"
 
 @implementation UIView (CHTHelper)
 
@@ -58,6 +59,14 @@
     CGRect rect = self.frame;
     rect.size = size;
     self.frame = rect;
+}
+
+- (void)showHUD {
+    [MBProgressHUD showHUDAddedTo:self withColor:TOPIC_COLOR backColor:BACK_COLOR];
+}
+
+- (void)hideHUD {
+    [MBProgressHUD hideAllHUDsForView:self animated:YES];
 }
 
 @end
