@@ -20,7 +20,9 @@
 @implementation CHTNewTopicViewController
 
 - (void)loadView {
+    
     self.myView = [[CHTNewTopicView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.myView.placeHolder = @"请输入内容";
     self.view = self.myView;
 }
 
@@ -40,10 +42,27 @@
     self.myView.label.text = self.subCategoryName;
     self.navigationItem.title = @"发表帖子";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightAction)];
+    if (self.topicID) {
+        self.navigationItem.title = @"回复";
+        self.myView.textField.hidden = YES;
+        self.myView.label.hidden = YES;
+        self.myView.placeHolder = [NSString stringWithFormat:@"回复%@", self.answeredName];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction)];
+        [self.myView.textField resignFirstResponder];
+        [self.myView.textView becomeFirstResponder];
+    }
     // Do any additional setup after loading the view.
 }
 
+- (void)cancelAction {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)rightAction {
+    if (self.topicID) {
+        [self answerAction];
+        return;
+    }
     CHTListModel *model = [[CHTListModel alloc] initAsNewModel];
     model = [self.myView setTopicModel:model];
     if (model.title.length == 0) {
@@ -66,6 +85,7 @@
         AVObject *object = [AVObject objectWithClassName:@"Topic" dictionary:[model dictOfModel]];
         [object setObject:self.subCategoryID forKey:@"subCategoryID"];
         [object setObject:@"匿名用户" forKey:@"userName"];
+        [object removeObjectForKey:@"height"];
         if ([object save]) {
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [MBProgressHUD showToastTitle:@"发表成功！" seconds:1 onView:[UIApplication sharedApplication].keyWindow];
@@ -77,6 +97,42 @@
         }
     });
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)answerAction {
+    CHTListModel *model = [[CHTListModel alloc] init];
+    model = [self.myView setTopicModel:model];
+    if (model.content.length == 0 && model.images.count == 0) {
+        [MBProgressHUD showToastTitle:@"回复内容不能为空!" seconds:1 onView:self.view];
+        return;
+    }
+    dispatch_async(dispatch_get_global_queue(0, 0), ^{
+        NSMutableArray *imagesUrlArray = [NSMutableArray array];
+        for (int i = 0; i < model.images.count; i++) {
+            NSData *data = UIImagePNGRepresentation(model.images[i]);
+            AVFile *file = [AVFile fileWithName:@"image.png" data:data];
+            if ([file save]) {
+                [imagesUrlArray addObject:file.url];
+            }
+        }
+        model.images = imagesUrlArray;
+        AVObject *object = [AVObject objectWithClassName:@"TopicAnswer" dictionary:[model dictOfModel]];
+        [object setObject:self.topicID forKey:@"topicID"];
+        [object setObject:@"匿名用户" forKey:@"userName"];
+        [object removeObjectForKey:@"title"];
+        [object removeObjectForKey:@"height"];
+
+        if ([object save]) {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showToastTitle:@"发表成功！" seconds:1 onView:[UIApplication sharedApplication].keyWindow];
+            });
+        } else {
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [MBProgressHUD showToastTitle:@"发表失败" seconds:1 onView:[UIApplication sharedApplication].keyWindow];
+            });
+        }
+    });
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)keyboardShow:(NSNotification *)sender {
@@ -96,9 +152,7 @@
 //    picker.allowsEditing = YES;
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        if ([self.myView countOfImages] == 0) {
-            [self.myView.textField becomeFirstResponder];
-        }
+
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
@@ -111,6 +165,10 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"从相册选取" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self selectPhoto];
     }]];
+    if (self.topicID) {
+        [self.navigationController presentViewController:alert animated:YES completion:nil];
+        return;
+    }
     [self.navigationController.tabBarController presentViewController:alert animated:YES completion:nil];
 }
 

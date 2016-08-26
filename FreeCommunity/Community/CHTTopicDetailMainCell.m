@@ -71,7 +71,7 @@
 }
 
 - (IBAction)replayAction:(UIButton *)sender {
-    
+    [_delegate answer:self.model.userName];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -11,7 +11,6 @@
 
 @interface CHTNewTopicView ()<UITextViewDelegate>
 
-@property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) UIView *bottomView;
 
 @property (nonatomic, strong) UIScrollView *imageScrollView;
@@ -63,9 +62,6 @@
     self.textView.font = [UIFont systemFontOfSize:15];
     self.textView.backgroundColor = [UIColor clearColor];
     self.textView.delegate = self;
-    
-    self.placeString = [[NSMutableAttributedString alloc] initWithString:@"请输入内容"];
-    [self.placeString addAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithWhite:0.7 alpha:1], NSFontAttributeName : [UIFont systemFontOfSize:15]} range:NSMakeRange(0, self.placeString.length)];
     
     self.bottomView = [[UIView alloc] init];
     self.bottomView.backgroundColor = [UIColor colorWithWhite:0.9 alpha:1];
@@ -170,7 +166,7 @@
             [self setNeedsDisplay];
         }
     } else {
-        self.placeString = [[NSMutableAttributedString alloc] initWithString:@"请输入内容"];
+        self.placeString = [[NSMutableAttributedString alloc] initWithString:self.placeHolder];
         [self.placeString addAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithWhite:0.7 alpha:1], NSFontAttributeName : [UIFont systemFontOfSize:15]} range:NSMakeRange(0, self.placeString.length)];
         [self setNeedsDisplay];
     }
@@ -288,5 +284,11 @@
     [self.placeString drawAtPoint:CGPointMake(6, 109)];
 }
 
+- (void)setPlaceHolder:(NSString *)placeHolder {
+    _placeHolder = placeHolder;
+    self.placeString = [[NSMutableAttributedString alloc] initWithString:self.placeHolder];
+    [self.placeString addAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithWhite:0.7 alpha:1], NSFontAttributeName : [UIFont systemFontOfSize:15]} range:NSMakeRange(0, self.placeString.length)];
+    [self setNeedsDisplay];
+}
 
 @end

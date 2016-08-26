@@ -37,7 +37,7 @@ static CHTTopicDetailManager *manager = nil;
 - (void)loadData:(CHTListModel *)listModel finish:(void (^)())finish {
     AVQuery *query = [AVQuery queryWithClassName:@"TopicAnswer"];
     [query whereKey:@"topicID" equalTo:listModel.topicID];
-    [query orderByDescending:@"createdAt"];
+    [query orderByAscending:@"createdAt"];
     [self.dataArray removeAllObjects];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         CHTTopicDetailModel *model = [CHTTopicDetailModel new];

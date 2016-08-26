@@ -13,6 +13,8 @@
 
 @property (nonatomic, strong) UITextField *textField;
 @property (nonatomic, strong) UILabel *label;
+@property (nonatomic, copy) NSString *placeHolder;
+@property (nonatomic, strong) UITextView *textView;
 
 - (void)showKeyboard:(CGFloat)keyboardHeight;
 - (void)hideKeyboard;

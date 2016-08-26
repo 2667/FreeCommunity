@@ -7,9 +7,11 @@
 //
 
 #import "CHTTopicDetailViewController.h"
+#import "CHTNewTopicViewController.h"
 #import "CHTTopicDetailHeader.h"
+#import "CHTNavigationController.h"
 
-@interface CHTTopicDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface CHTTopicDetailViewController ()<UITableViewDataSource, UITableViewDelegate, CHTAnswerDelegate>
 
 @property (nonatomic, strong) CHTTopicDetailView *myView;
 
@@ -51,7 +53,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CHTTopicDetailMainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"topicDetailMainCell" forIndexPath:indexPath];
     cell.model = [[CHTTopicDetailManager shareInstance] modelAtIndex:indexPath];
+    cell.delegate = self;
     return cell;
+}
+
+- (void)answer:(NSString *)answeredName {
+    CHTNewTopicViewController *nvc = [[CHTNewTopicViewController alloc] init];
+    nvc.topicID = self.listModel.topicID;
+    nvc.answeredName = answeredName;
+    [self.navigationController presentViewController:[[CHTNavigationController alloc] initWithRootViewController:nvc] animated:YES completion:nil];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

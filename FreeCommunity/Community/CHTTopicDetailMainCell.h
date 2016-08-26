@@ -8,10 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CHTAnswerDelegate <NSObject>
+
+- (void)answer:(NSString *)answeredName;
+
+@end
+
 @class CHTTopicDetailModel;
 @interface CHTTopicDetailMainCell : UITableViewCell
 
 @property (nonatomic, strong) CHTTopicDetailModel *model;
+
+@property (nonatomic, assign) id delegate;
 
 + (float)heightWith:(NSString *)content imageCount:(NSInteger)count;
 

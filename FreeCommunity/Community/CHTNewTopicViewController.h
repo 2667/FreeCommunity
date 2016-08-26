@@ -13,4 +13,7 @@
 @property (nonatomic, strong) NSNumber *subCategoryID;
 @property (nonatomic, copy) NSString *subCategoryName;
 
+@property (nonatomic, strong) NSNumber *topicID;
+@property (nonatomic, copy) NSString *answeredName;
+
 @end
