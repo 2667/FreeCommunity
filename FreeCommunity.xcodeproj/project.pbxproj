@@ -73,7 +73,6 @@
 		6F3F803F1D6D62050097225B /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3F802A1D6D62050097225B /* UIScrollView+MJExtension.m */; };
 		6F3F80401D6D62050097225B /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3F802C1D6D62050097225B /* UIScrollView+MJRefresh.m */; };
 		6F3F80411D6D62050097225B /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3F802E1D6D62050097225B /* UIView+MJExtension.m */; };
-		6F3F80441D6D6ED20097225B /* CHTImagesPickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3F80431D6D6ED20097225B /* CHTImagesPickerManager.m */; };
 		6F3F80461D6D7EFE0097225B /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3F80451D6D7EFE0097225B /* delete.png */; };
 		6FA3A97A1D6ED0E80065A4BC /* nothing.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3A9791D6ED0E80065A4BC /* nothing.png */; };
 		6FA3A97C1D6EF1210065A4BC /* CHTCommunitySubCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3A97B1D6EF1210065A4BC /* CHTCommunitySubCell.xib */; };
@@ -249,8 +248,6 @@
 		6F3F802C1D6D62050097225B /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		6F3F802D1D6D62050097225B /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		6F3F802E1D6D62050097225B /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
-		6F3F80421D6D6ED20097225B /* CHTImagesPickerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTImagesPickerManager.h; sourceTree = "<group>"; };
-		6F3F80431D6D6ED20097225B /* CHTImagesPickerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTImagesPickerManager.m; sourceTree = "<group>"; };
 		6F3F80451D6D7EFE0097225B /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
 		6FA3A9791D6ED0E80065A4BC /* nothing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nothing.png; sourceTree = "<group>"; };
 		6FA3A97B1D6EF1210065A4BC /* CHTCommunitySubCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHTCommunitySubCell.xib; sourceTree = "<group>"; };
@@ -799,8 +796,6 @@
 				6FC43D1B1D6AE2D70062ACA1 /* UIView+CHTHelper.h */,
 				6FC43D1C1D6AE2D70062ACA1 /* UIView+CHTHelper.m */,
 				6FC43D1D1D6AE2D70062ACA1 /* UIView+FrameHelper.h */,
-				6F3F80421D6D6ED20097225B /* CHTImagesPickerManager.h */,
-				6F3F80431D6D6ED20097225B /* CHTImagesPickerManager.m */,
 			);
 			path = Header;
 			sourceTree = "<group>";
@@ -1075,7 +1070,6 @@
 				6F3F7FA81D6C1E830097225B /* CHTListModel.m in Sources */,
 				6FC43D271D6AE2D70062ACA1 /* CHTRootTabBarController.m in Sources */,
 				6F3F7FE21D6C37520097225B /* UIImageView+WebCache.m in Sources */,
-				6F3F80441D6D6ED20097225B /* CHTImagesPickerManager.m in Sources */,
 				6F3F7F8E1D6C15D80097225B /* MASCompositeConstraint.m in Sources */,
 				6F3F7FDD1D6C37520097225B /* UIButton+WebCache.m in Sources */,
 				6F3F7FD91D6C37520097225B /* SDWebImageDownloader.m in Sources */,
@@ -1227,6 +1221,34 @@
 				INFOPLIST_FILE = FreeCommunity/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AVOSCloud\"",
+					"-l\"CTAssetsPickerController\"",
+					"-l\"PureLayout\"",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Photos\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = CHT.FreeCommunity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1246,6 +1268,34 @@
 				INFOPLIST_FILE = FreeCommunity/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AVOSCloud\"",
+					"-l\"CTAssetsPickerController\"",
+					"-l\"PureLayout\"",
+					"-l\"icucore\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"Photos\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = CHT.FreeCommunity;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
