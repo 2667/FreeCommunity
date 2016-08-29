@@ -42,7 +42,11 @@
     self.myView.label.text = self.subCategoryName;
     self.navigationItem.title = @"发表帖子";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(rightAction)];
-    if (self.topicID) {
+    if (self.objectID) {
+        if ([self.className isEqualToString:@"TopicAnswer"]) {
+            self.myView.photoBtn.hidden = YES;
+            self.myView.addImageBtn.hidden = YES;
+        }
         self.navigationItem.title = @"回复";
         self.myView.textField.hidden = YES;
         self.myView.label.hidden = YES;
@@ -59,7 +63,7 @@
 }
 
 - (void)rightAction {
-    if (self.topicID) {
+    if (self.objectID) {
         [self answerAction];
         return;
     }
@@ -102,6 +106,9 @@
 - (void)answerAction {
     CHTListModel *model = [[CHTListModel alloc] init];
     model = [self.myView setTopicModel:model];
+    if ([self.className isEqualToString:@"TopicAnswer"]) {
+        model.content = [NSString stringWithFormat:@"回复%@: %@", self.answeredName, model.content];
+    }
     if (model.content.length == 0 && model.images.count == 0) {
         [MBProgressHUD showToastTitle:@"回复内容不能为空!" seconds:1 onView:self.view];
         return;
@@ -119,10 +126,23 @@
         AVObject *object = [AVObject objectWithClassName:@"TopicAnswer" dictionary:[model dictOfModel]];
         [object setObject:self.topicID forKey:@"topicID"];
         [object setObject:@"匿名用户" forKey:@"userName"];
+        [object setObject:self.subCategoryID forKey:@"subCategoryID"];
         [object removeObjectForKey:@"title"];
         [object removeObjectForKey:@"height"];
 
         if ([object save]) {
+            AVQuery *query = [AVQuery queryWithClassName:@"Topic"];
+            [query whereKey:@"topicID" equalTo:self.topicID];
+            [query getFirstObjectInBackgroundWithBlock:^(AVObject *object, NSError *error) {
+                [object setObject:[NSDate date] forKey:@"answerTime"];
+                [object saveInBackground];
+            }];
+            AVObject *topicObject = [AVObject objectWithClassName:self.className objectId:self.objectID];
+            AVRelation *relation = [topicObject relationForKey:@"answers"];
+            [relation addObject:object];
+            [topicObject saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                NSLog(@"%@", error);
+            }];
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [MBProgressHUD showToastTitle:@"发表成功！" seconds:1 onView:[UIApplication sharedApplication].keyWindow];
             });

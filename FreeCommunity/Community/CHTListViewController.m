@@ -38,6 +38,19 @@
     [self.myView.tableView registerNib:[UINib nibWithNibName:@"CHTListCell" bundle:nil] forCellReuseIdentifier:@"listCell"];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self getCount];
+}
+
+- (void)getCount {
+    [[CHTListManager shareInstance] countOfTopic:self.subCategoryID finish:^(NSInteger count) {
+        [self.myView setTopicCount:count];
+    }];
+    [[CHTListManager shareInstance] countOfAnswer:self.subCategoryID finish:^(NSInteger count) {
+        [self.myView setAnswerCount:count];
+    }];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self makeRightItem];
@@ -50,9 +63,6 @@
         self.myView.tableView.tableFooterView = count < 20 ? self.noMoreFooterView : nil;
         [self reloadTableView];
     }];
-    [[CHTListManager shareInstance] countOfTopic:self.subCategoryID finish:^(NSInteger count) {
-        [self.myView setTopicCount:count];
-    }];
     self.myView.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         [self.view showHUD];
         [[CHTListManager shareInstance] requestData:self.currentType isAdd:YES finish:^(NSInteger count){
@@ -64,6 +74,7 @@
     }];
     self.myView.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self refreshAction];
+        [self getCount];
     }];
     // Do any additional setup after loading the view.
 }
@@ -145,6 +156,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     CHTTopicDetailViewController *tvc = [[CHTTopicDetailViewController alloc] init];
     tvc.listModel = [[CHTListManager shareInstance] modelOfCurrentType:self.currentType index:indexPath.row];
+    tvc.subCategoryID = self.subCategoryID;
     [self.navigationController pushViewController:tvc animated:YES];
 }
 

@@ -67,4 +67,6 @@ typedef enum : NSUInteger {
 
 - (void)countOfTopic:(NSNumber *)subCategoryID finish:(void(^)(NSInteger count))finish;
 
+- (void)countOfAnswer:(NSNumber *)subCategoryID finish:(void(^)(NSInteger count))finish;
+
 @end

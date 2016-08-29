@@ -13,5 +13,6 @@
 @property (nonatomic, strong) UITableView *tableView;
 
 - (void)setTopicCount:(NSInteger)count;
+- (void)setAnswerCount:(NSInteger)count;
 
 @end

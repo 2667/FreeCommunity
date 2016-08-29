@@ -66,36 +66,6 @@ static CHTListManager *manager = nil;
     }];
 }
 
-/*
-- (void)refreshData:(CHTListSortedType)type finish:(void(^)())finish {
-    AVQuery *query = [AVQuery queryWithClassName:@"Topic"];
-    [query whereKey:self.isSubCategory equalTo:self.currentCategoryID];
-    switch (type) {
-        case CHTListSortedTypeCreatTime:
-            [query orderByDescending:@"createdAt"];
-            break;
-        case CHTListSortedTypeAnswerTime:
-            [query orderByDescending:@"answerTime"];
-            break;
-        case CHTListSortedTypeAnswerCount:
-            [query orderByDescending:@"answerCount"];
-            break;
-            
-        default:
-            break;
-    }
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        [self.dataArray[type] removeAllObjects];
-        for (int i = 0; i < objects.count; i++) {
-            AVObject *object = objects[i];
-            CHTListModel *model = [[CHTListModel alloc] initWithObject:object];
-            [self.dataArray[type] addObject:model];
-        }
-        finish();
-    }];
-}
- */
-
 - (void)requestData:(CHTListSortedType)type isAdd:(BOOL)add finish:(void(^)(NSInteger count))finish {
     AVQuery *query = [AVQuery queryWithClassName:@"Topic"];
     query.limit = 20;
@@ -119,6 +89,13 @@ static CHTListManager *manager = nil;
         for (int i = 0; i < objects.count; i++) {
             AVObject *object = objects[i];
             CHTListModel *model = [[CHTListModel alloc] initWithObject:object];
+            AVQuery *query = [AVQuery queryWithClassName:@"TopicAnswer"];
+            [query whereKey:@"topicID" equalTo:model.topicID];
+            [query countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
+                model.answerCount = @(number);
+                [object setObject:@(number) forKey:@"answerCount"];
+                [object saveInBackground];
+            }];
             [self.dataArray[type] addObject:model];
         }
         finish(objects.count);
@@ -135,6 +112,14 @@ static CHTListManager *manager = nil;
 
 - (void)countOfTopic:(NSNumber *)subCategoryID finish:(void (^)(NSInteger count))finish {
     AVQuery *query = [AVQuery queryWithClassName:@"Topic"];
+    [query whereKey:@"subCategoryID" equalTo:subCategoryID];
+    [query countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
+        finish(number);
+    }];
+}
+
+- (void)countOfAnswer:(NSNumber *)subCategoryID finish:(void (^)(NSInteger count))finish {
+    AVQuery *query = [AVQuery queryWithClassName:@"TopicAnswer"];
     [query whereKey:@"subCategoryID" equalTo:subCategoryID];
     [query countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
         finish(number);

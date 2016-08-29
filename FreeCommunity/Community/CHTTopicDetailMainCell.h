@@ -10,7 +10,8 @@
 
 @protocol CHTAnswerDelegate <NSObject>
 
-- (void)answer:(NSString *)answeredName;
+- (void)answer:(NSIndexPath *)indexPath;
+- (void)clickImage:(NSInteger)index images:(NSArray *)imagesArray;
 
 @end
 
@@ -18,9 +19,10 @@
 @interface CHTTopicDetailMainCell : UITableViewCell
 
 @property (nonatomic, strong) CHTTopicDetailModel *model;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 
 @property (nonatomic, assign) id delegate;
 
-+ (float)heightWith:(NSString *)content imageCount:(NSInteger)count;
++ (float)heightWith:(NSString *)content imageCount:(NSInteger)count fontSize:(CGFloat)size labelWidth:(CGFloat)width;
 
 @end

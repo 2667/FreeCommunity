@@ -19,6 +19,7 @@
         self.date = object.createdAt;
         self.content = object[@"content"];
         self.images = object[@"images"];
+        self.objectId = object.objectId;
     }
     return self;
 }

@@ -35,8 +35,10 @@ static CHTTopicDetailManager *manager = nil;
 }
 
 - (void)loadData:(CHTListModel *)listModel finish:(void (^)())finish {
-    AVQuery *query = [AVQuery queryWithClassName:@"TopicAnswer"];
-    [query whereKey:@"topicID" equalTo:listModel.topicID];
+    AVObject *topicObject = [AVObject objectWithClassName:@"Topic" objectId:listModel.objectId];
+    AVRelation *relation = [topicObject relationForKey:@"answers"];
+    AVQuery *query = [relation query];
+    query.limit = 30;
     [query orderByAscending:@"createdAt"];
     [self.dataArray removeAllObjects];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
@@ -46,23 +48,74 @@ static CHTTopicDetailManager *manager = nil;
         model.date = listModel.createdAt;
         model.content = listModel.content;
         model.images = listModel.images;
-        model.section = self.dataArray.count;
         [self.dataArray addObject:model];
         for (int i = 0; i < objects.count; i++) {
             CHTTopicDetailModel *model = [[CHTTopicDetailModel alloc] initWithObject:objects[i]];
-            model.section = self.dataArray.count;
+            AVRelation *relation = [objects[i] relationForKey:@"answers"];
+            AVQuery *query = [relation query];
+            [query orderByAscending:@"createdAt"];
+            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                model.subAnswers = [NSMutableArray array];
+                for (int i = 0; i < objects.count; i++) {
+                    CHTTopicDetailModel *subModel = [[CHTTopicDetailModel alloc] initWithObject:objects[i]];
+                    [model.subAnswers addObject:subModel];
+                }
+                finish();
+            }];
             [self.dataArray addObject:model];
         }
         finish();
     }];
 }
 
+- (void)loadMoreData:(CHTListModel *)listModel skip:(NSInteger)skip finish:(void (^)())finish {
+    AVObject *topicObject = [AVObject objectWithClassName:@"Topic" objectId:listModel.objectId];
+    AVRelation *relation = [topicObject relationForKey:@"answers"];
+    AVQuery *query = [relation query];
+    query.limit = 10;
+    query.skip = skip;
+    [query orderByAscending:@"createdAt"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        for (int i = 0; i < objects.count; i++) {
+            CHTTopicDetailModel *model = [[CHTTopicDetailModel alloc] initWithObject:objects[i]];
+            AVRelation *relation = [objects[i] relationForKey:@"answers"];
+            AVQuery *query = [relation query];
+            [query orderByAscending:@"createdAt"];
+            [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+                model.subAnswers = [NSMutableArray array];
+                for (int i = 0; i < objects.count; i++) {
+                    CHTTopicDetailModel *subModel = [[CHTTopicDetailModel alloc] initWithObject:objects[i]];
+                    [model.subAnswers addObject:subModel];
+                }
+                finish();
+            }];
+            [self.dataArray addObject:model];
+        }
+        finish();
+    }];
+
+}
+
+- (NSArray *)getArray {
+    return self.dataArray.mutableCopy;
+}
+
 - (NSInteger)countOfData {
     return self.dataArray.count;
 }
 
-- (id)modelAtIndex:(NSIndexPath *)indexPath {
-    return self.dataArray[indexPath.section];
+- (NSInteger)countOfsubData:(NSInteger)section {
+    CHTTopicDetailModel *model = self.dataArray[section];
+    return model.subAnswers.count + 1;
+}
+
+- (CHTTopicDetailModel *)modelAtIndex:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        return self.dataArray[indexPath.section];
+    } else {
+        CHTTopicDetailModel *model = self.dataArray[indexPath.section];
+        return model.subAnswers[indexPath.row - 1];
+    }
 }
 
 @end

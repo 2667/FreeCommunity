@@ -16,6 +16,7 @@
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, copy) NSString *userName;
 @property (nonatomic, copy) NSString *userImage;
+@property (nonatomic, copy) NSString *objectId;
 @property (nonatomic, strong) NSNumber *topicID;
 @property (nonatomic, strong) NSNumber *seeCount;
 @property (nonatomic, strong) NSNumber *answerCount;

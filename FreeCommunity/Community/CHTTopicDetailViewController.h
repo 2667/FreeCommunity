@@ -12,5 +12,6 @@
 @interface CHTTopicDetailViewController : CHTBaseViewController
 
 @property (nonatomic, strong) CHTListModel *listModel;
+@property (nonatomic, strong) NSNumber *subCategoryID;
 
 @end

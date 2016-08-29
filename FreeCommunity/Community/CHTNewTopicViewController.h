@@ -15,5 +15,7 @@
 
 @property (nonatomic, strong) NSNumber *topicID;
 @property (nonatomic, copy) NSString *answeredName;
+@property (nonatomic, copy) NSString *objectID;
+@property (nonatomic, copy) NSString *className;
 
 @end

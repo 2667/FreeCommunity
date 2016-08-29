@@ -21,9 +21,18 @@
 }
 
 - (void)setupView {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.width, self.height - 64 - 30) style:UITableViewStylePlain];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64, self.width, self.height - 64 - 35) style:UITableViewStylePlain];
     self.tableView.showsVerticalScrollIndicator = NO;
     [self addSubview:self.tableView];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setBackgroundColor:[UIColor clearColor]];
+    btn.layer.cornerRadius = 5;
+    btn.frame = CGRectMake(5, self.height - 35, self.width - 10, 35);
+    [btn setTitle:@"回复楼主" forState:UIControlStateNormal];
+    [btn setTitleColor:TOPIC_COLOR forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:14];
+    [btn addTarget:self.nextResponder action:@selector(clickAction) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:btn];
 }
 
 - (void)setHeaderModel:(CHTListModel *)headerModel {
@@ -39,31 +48,31 @@
         make.right.equalTo(view).offset(-15);
     }];
     
-    UIImageView *seeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"see"]];
-    [view addSubview:seeImage];
-    [seeImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(titleLabel.mas_bottom).offset(15);
-        make.left.equalTo(titleLabel);
-        make.height.equalTo(@15);
-        make.width.equalTo(@20);
-    }];
-    
-    UILabel *seeLabel = [[UILabel alloc] init];
-    [self setupLabel:seeLabel];
-    seeLabel.text = [NSString stringWithFormat:@"%@", headerModel.seeCount];
-    [view addSubview:seeLabel];
-    [seeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(seeImage);
-        make.left.equalTo(seeImage.mas_right).offset(5);
-    }];
+//    UIImageView *seeImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"see"]];
+//    [view addSubview:seeImage];
+//    [seeImage mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.top.equalTo(titleLabel.mas_bottom).offset(15);
+//        make.left.equalTo(titleLabel);
+//        make.height.equalTo(@15);
+//        make.width.equalTo(@20);
+//    }];
+//    
+//    UILabel *seeLabel = [[UILabel alloc] init];
+//    [self setupLabel:seeLabel];
+//    seeLabel.text = [NSString stringWithFormat:@"%@", headerModel.seeCount];
+//    [view addSubview:seeLabel];
+//    [seeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.centerY.equalTo(seeImage);
+//        make.left.equalTo(seeImage.mas_right).offset(5);
+//    }];
     
     UIImageView *answerImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"answer"]];
     [view addSubview:answerImage];
     [answerImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(seeImage);
-        make.left.equalTo(seeLabel.mas_right).offset(20);
-        make.height.equalTo(seeImage);
-        make.width.equalTo(seeImage);
+        make.top.equalTo(titleLabel.mas_bottom).offset(15);
+        make.left.equalTo(titleLabel);
+        make.height.equalTo(@15);
+        make.width.equalTo(@20);
     }];
     
     UILabel *answerLabel = [[UILabel alloc] init];
@@ -75,7 +84,7 @@
         make.left.equalTo(answerImage.mas_right).offset(5);
     }];
     
-    [seeImage mas_updateConstraints:^(MASConstraintMaker *make) {
+    [answerImage mas_updateConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(view).offset(-15);
     }];
     

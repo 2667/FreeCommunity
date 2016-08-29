@@ -41,6 +41,7 @@
         self.title = object[@"title"];
         self.content = object[@"content"];
         self.topicID = object[@"topicID"];
+        self.objectId = object.objectId;
         self.answerCount = object[@"answerCount"];
         self.seeCount = object[@"seeCount"];
         self.images = object[@"images"];

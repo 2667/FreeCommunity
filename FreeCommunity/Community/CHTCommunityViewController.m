@@ -28,9 +28,13 @@
     [self.myView.subTableView registerNib:[UINib nibWithNibName:@"CHTCommunitySubCell" bundle:nil] forCellReuseIdentifier:@"subCommunityCell"];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [self.myView.subTableView reloadData];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.title = @"自由论坛";
+    self.navigationItem.title = @"自由社区";
     [self makeData];
     // Do any additional setup after loadingthe view.
 }

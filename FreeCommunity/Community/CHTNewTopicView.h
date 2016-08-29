@@ -15,6 +15,8 @@
 @property (nonatomic, strong) UILabel *label;
 @property (nonatomic, copy) NSString *placeHolder;
 @property (nonatomic, strong) UITextView *textView;
+@property (nonatomic, strong) UIButton *photoBtn;
+@property (nonatomic, strong) UIButton *addImageBtn;
 
 - (void)showKeyboard:(CGFloat)keyboardHeight;
 - (void)hideKeyboard;

@@ -16,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UILabel *titleLabel;
 @property (strong, nonatomic) IBOutlet UIView *imagesBackView;
 @property (strong, nonatomic) IBOutlet UILabel *timeLabel;
+@property (strong, nonatomic) IBOutlet UILabel *answerCount;
 
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *viewHeightConstraint;
 
@@ -51,6 +52,16 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MM-dd HH:mm"];
     self.timeLabel.text = [formatter stringFromDate:model.createdAt];
+//    AVObject *object = [AVObject objectWithClassName:@"Topic" objectId:model.objectId];
+//    AVQuery *query = [AVQuery queryWithClassName:@"TopicAnswer"];
+//    [query whereKey:@"topicID" equalTo:model.topicID];
+//    [query countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
+//        self.answerCount.text = [NSString stringWithFormat:@"%ld", number];
+//        model.answerCount = [NSNumber numberWithInteger:number];
+//        [object setObject:@(number) forKey:@"answerCount"];
+//        [object saveInBackground];
+//    }];
+    self.answerCount.text = [NSString stringWithFormat:@"%@", model.answerCount];
     [self layoutIfNeeded];
 }
 

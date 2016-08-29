@@ -13,6 +13,7 @@
 
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *topicLabel;
+@property (nonatomic, strong) UILabel *answerLabel;
 @property (nonatomic, strong) UIButton *btn;
 
 @end
@@ -52,8 +53,20 @@
     self.topicLabel.textColor = [UIColor grayColor];
     self.topicLabel.text = @"主题帖 0";
     [headerView addSubview:self.topicLabel];
+    
+    self.answerLabel = [[UILabel alloc] init];
+    self.answerLabel.font = [UIFont systemFontOfSize:14];
+    self.answerLabel.textColor = [UIColor grayColor];
+    self.answerLabel.text = @"回帖 0";
+    [headerView addSubview:self.answerLabel];
+
     [self.topicLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.imageView.mas_right).offset(10);
+        make.centerY.equalTo(self.imageView);
+    }];
+    
+    [self.answerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.topicLabel.mas_right).offset(10);
         make.centerY.equalTo(self.imageView);
     }];
     
@@ -80,6 +93,10 @@
 
 - (void)setTopicCount:(NSInteger)count {
     self.topicLabel.text = [NSString stringWithFormat:@"主题帖 %ld", count];
+}
+
+- (void)setAnswerCount:(NSInteger)count {
+    self.answerLabel.text = [NSString stringWithFormat:@"回帖 %ld", count];
 }
 
 /*

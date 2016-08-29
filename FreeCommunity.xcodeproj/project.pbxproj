@@ -74,6 +74,8 @@
 		6F3F80401D6D62050097225B /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3F802C1D6D62050097225B /* UIScrollView+MJRefresh.m */; };
 		6F3F80411D6D62050097225B /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F3F802E1D6D62050097225B /* UIView+MJExtension.m */; };
 		6F3F80461D6D7EFE0097225B /* delete.png in Resources */ = {isa = PBXBuildFile; fileRef = 6F3F80451D6D7EFE0097225B /* delete.png */; };
+		6F5E83021D74273600F410F2 /* CHTImageLookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E83011D74273600F410F2 /* CHTImageLookViewController.m */; };
+		6F5E83051D74275C00F410F2 /* CHTImageLookView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F5E83041D74275C00F410F2 /* CHTImageLookView.m */; };
 		6FA3A97A1D6ED0E80065A4BC /* nothing.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3A9791D6ED0E80065A4BC /* nothing.png */; };
 		6FA3A97C1D6EF1210065A4BC /* CHTCommunitySubCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3A97B1D6EF1210065A4BC /* CHTCommunitySubCell.xib */; };
 		6FA3A97E1D6EF2010065A4BC /* tiezi.png in Resources */ = {isa = PBXBuildFile; fileRef = 6FA3A97D1D6EF2010065A4BC /* tiezi.png */; };
@@ -249,6 +251,10 @@
 		6F3F802D1D6D62050097225B /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		6F3F802E1D6D62050097225B /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 		6F3F80451D6D7EFE0097225B /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
+		6F5E83001D74273600F410F2 /* CHTImageLookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTImageLookViewController.h; sourceTree = "<group>"; };
+		6F5E83011D74273600F410F2 /* CHTImageLookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTImageLookViewController.m; sourceTree = "<group>"; };
+		6F5E83031D74275C00F410F2 /* CHTImageLookView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHTImageLookView.h; sourceTree = "<group>"; };
+		6F5E83041D74275C00F410F2 /* CHTImageLookView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHTImageLookView.m; sourceTree = "<group>"; };
 		6FA3A9791D6ED0E80065A4BC /* nothing.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nothing.png; sourceTree = "<group>"; };
 		6FA3A97B1D6EF1210065A4BC /* CHTCommunitySubCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CHTCommunitySubCell.xib; sourceTree = "<group>"; };
 		6FA3A97D1D6EF2010065A4BC /* tiezi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiezi.png; sourceTree = "<group>"; };
@@ -693,6 +699,8 @@
 				6FA3A9961D7028520065A4BC /* CHTTopicDetailMainCell.h */,
 				6FA3A9971D7028520065A4BC /* CHTTopicDetailMainCell.m */,
 				6FA3A9981D7028520065A4BC /* CHTTopicDetailMainCell.xib */,
+				6F5E83031D74275C00F410F2 /* CHTImageLookView.h */,
+				6F5E83041D74275C00F410F2 /* CHTImageLookView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -720,6 +728,8 @@
 			children = (
 				6FA3A98B1D7017210065A4BC /* CHTTopicDetailViewController.h */,
 				6FA3A98C1D7017210065A4BC /* CHTTopicDetailViewController.m */,
+				6F5E83001D74273600F410F2 /* CHTImageLookViewController.h */,
+				6F5E83011D74273600F410F2 /* CHTImageLookViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -1059,6 +1069,7 @@
 				6FA3A9991D7028520065A4BC /* CHTTopicDetailMainCell.m in Sources */,
 				6F3F7F901D6C15D80097225B /* MASConstraintMaker.m in Sources */,
 				6F3F7F651D6BEC230097225B /* CHTCommunityView.m in Sources */,
+				6F5E83051D74275C00F410F2 /* CHTImageLookView.m in Sources */,
 				6F3F803E1D6D62050097225B /* MJRefreshConst.m in Sources */,
 				6FC43CFF1D6AE28E0062ACA1 /* AppDelegate.m in Sources */,
 				6FC43D251D6AE2D70062ACA1 /* UITextField+CHTHealper.m in Sources */,
@@ -1082,6 +1093,7 @@
 				6F3F7FA41D6C1AB70097225B /* CHTListView.m in Sources */,
 				6FA3A9901D7018560065A4BC /* CHTTopicDetailView.m in Sources */,
 				6F3F7FA11D6C1AA90097225B /* CHTListViewController.m in Sources */,
+				6F5E83021D74273600F410F2 /* CHTImageLookViewController.m in Sources */,
 				6F3F7FED1D6D29CD0097225B /* CHTNewTopicView.m in Sources */,
 				6F3F7FD71D6C37520097225B /* SDWebImageCompat.m in Sources */,
 				6F3F7FAB1D6C20D60097225B /* CHTListManager.m in Sources */,

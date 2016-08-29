@@ -35,6 +35,11 @@
     [query countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
         self.topicLabel.text = [NSString stringWithFormat:@"主题帖 %ld", number];
     }];
+    AVQuery *query2 = [AVQuery queryWithClassName:@"TopicAnswer"];
+    [query2 whereKey:@"subCategoryID" equalTo:model.subCategoryID];
+    [query2 countObjectsInBackgroundWithBlock:^(NSInteger number, NSError *error) {
+        self.answeiLabel.text = [NSString stringWithFormat:@"回帖 %ld", number];
+    }];
 }
 
 - (void)awakeFromNib {

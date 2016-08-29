@@ -54,21 +54,37 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UeM-Bj-bIn">
-                        <rect key="frame" x="0.0" y="298.5" width="369" height="5"/>
+                        <rect key="frame" x="0.0" y="298" width="369" height="5"/>
                         <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="5" id="7Ex-Yg-jVf"/>
                         </constraints>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="answer.png" translatesAutoresizingMaskIntoConstraints="NO" id="xhN-wP-dGQ">
+                        <rect key="frame" x="320.5" y="221" width="25" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="2VA-hK-VM8"/>
+                            <constraint firstAttribute="width" constant="25" id="gOD-bW-wqJ"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Vb-sg-Nep">
+                        <rect key="frame" x="350.5" y="223" width="8.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.49642783717105265" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="abQ-Fe-oBw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="20c-HP-kHm"/>
                     <constraint firstItem="iDB-gj-bIX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="5AL-jV-QeR"/>
                     <constraint firstAttribute="trailing" secondItem="Chw-fb-1RT" secondAttribute="trailing" constant="20" id="6Xk-Bg-Cl4"/>
                     <constraint firstItem="Chw-fb-1RT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="7yA-rO-ciC"/>
+                    <constraint firstItem="xhN-wP-dGQ" firstAttribute="centerY" secondItem="0Vb-sg-Nep" secondAttribute="centerY" id="HGp-A3-AUh"/>
+                    <constraint firstAttribute="trailing" secondItem="0Vb-sg-Nep" secondAttribute="trailing" constant="10" id="Kss-O8-fsm"/>
                     <constraint firstItem="abQ-Fe-oBw" firstAttribute="top" secondItem="1Yt-Ht-pPw" secondAttribute="bottom" constant="15" id="KwW-hb-JwM"/>
                     <constraint firstItem="1Yt-Ht-pPw" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="1/3" id="O9S-p5-E9f"/>
                     <constraint firstItem="961-iA-T6C" firstAttribute="centerY" secondItem="iDB-gj-bIX" secondAttribute="centerY" id="Ptt-6s-YJb"/>
+                    <constraint firstItem="0Vb-sg-Nep" firstAttribute="leading" secondItem="xhN-wP-dGQ" secondAttribute="trailing" constant="5" id="WYL-Sl-Epm"/>
                     <constraint firstItem="1Yt-Ht-pPw" firstAttribute="top" secondItem="Chw-fb-1RT" secondAttribute="bottom" id="cxV-sA-2cf"/>
                     <constraint firstItem="Chw-fb-1RT" firstAttribute="top" secondItem="iDB-gj-bIX" secondAttribute="bottom" constant="10" id="eTG-ak-Z1c"/>
                     <constraint firstAttribute="trailing" secondItem="UeM-Bj-bIn" secondAttribute="trailing" id="ebT-8z-TdD"/>
@@ -76,11 +92,13 @@
                     <constraint firstItem="iDB-gj-bIX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="l0O-nL-pmi"/>
                     <constraint firstAttribute="trailing" secondItem="1Yt-Ht-pPw" secondAttribute="trailing" constant="10" id="mHh-bD-32b"/>
                     <constraint firstItem="961-iA-T6C" firstAttribute="leading" secondItem="iDB-gj-bIX" secondAttribute="trailing" constant="10" id="oHv-tV-wGl"/>
+                    <constraint firstItem="0Vb-sg-Nep" firstAttribute="centerY" secondItem="abQ-Fe-oBw" secondAttribute="centerY" id="oMf-yt-c61"/>
                     <constraint firstItem="UeM-Bj-bIn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="oXh-Xm-FE8"/>
                     <constraint firstAttribute="bottom" secondItem="UeM-Bj-bIn" secondAttribute="bottom" id="u0H-kh-BFR"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="answerCount" destination="0Vb-sg-Nep" id="2RI-DM-wUU"/>
                 <outlet property="imagesBackView" destination="1Yt-Ht-pPw" id="hwE-QH-MuF"/>
                 <outlet property="timeLabel" destination="abQ-Fe-oBw" id="eme-hw-GX7"/>
                 <outlet property="titleLabel" destination="Chw-fb-1RT" id="6bq-TA-i3C"/>
@@ -93,5 +111,6 @@
     </objects>
     <resources>
         <image name="TabBarImage_02.png" width="30" height="30"/>
+        <image name="answer.png" width="128" height="128"/>
     </resources>
 </document>

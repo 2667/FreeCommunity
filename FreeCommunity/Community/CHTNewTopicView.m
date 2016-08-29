@@ -17,9 +17,6 @@
 
 @property (nonatomic, strong) NSMutableAttributedString *placeString;
 
-@property (nonatomic, strong) UIButton *photoBtn;
-@property (nonatomic, strong) UIButton *addImageBtn;
-
 @property (nonatomic, strong) NSMutableArray *imageArray;
 
 @property (nonatomic, strong) UILabel *imageCountLabel;
